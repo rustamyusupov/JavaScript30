@@ -22,6 +22,7 @@
     }
 
     .panels {
+      display: flex;
       min-height:100vh;
       overflow: hidden;
     }
@@ -30,6 +31,11 @@
       background:#6B0F9C;
       box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
       color:white;
+      flex: 1;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
       align-items:center;
       /* Safari transitionend event.propertyName === flex */
@@ -54,6 +60,26 @@
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 0 auto;
+    }
+
+    .panel > *:first-child {
+      transform: translateY(-100%);
+    }
+
+    .panel.open-active > *:first-child {
+      transform: translateY(0);
+    }
+
+    .panel > *:last-child {
+      transform: translateY(100%);
+    }
+
+    .panel.open-active > *:last-child {
+      transform: translateY(0);
     }
 
     .panel p {
@@ -67,6 +93,7 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size:40px;
     }
 
@@ -107,10 +134,18 @@
   </div>
 
   <script>
+    const panels = document.querySelectorAll('.panel');
 
+    panels.forEach(panel => panel.addEventListener('click', () => {
+      panel.classList.toggle('open');
+    }));
+
+    panels.forEach(panel => panel.addEventListener('transitionend', (evt) => {
+      if (!evt.propertyName.includes('flex')) return;
+
+      panel.classList.toggle('open-active');
+    }));
   </script>
-
-
 
 </body>
 </html>
