@@ -6,7 +6,17 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
-<script>
-</script>
+  <script>
+    const code = 'bulsara';
+    let pressedKeys = [];
+
+    window.addEventListener('keyup', (evt) => {
+      pressedKeys.push(evt.key);
+      pressedKeys.splice(-code.length - 1, pressedKeys.length - code.length);
+
+      console.log(pressedKeys);
+      if (pressedKeys.join('') === code) cornify_add();
+    });
+  </script>
 </body>
 </html>
